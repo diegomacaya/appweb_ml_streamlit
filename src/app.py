@@ -1,7 +1,7 @@
 from pickle import load
 import streamlit as st
 
-model = load(open('../models/random_forest.sav','rb'))
+model = load(open('/workspaces/appweb_ml_streamlit/models/random_forest_42.sav','rb'))
 
 st.title('Predicción de Nota en Exámen')
 
@@ -19,4 +19,6 @@ acceso_recursos = st.radio('Acceso a recursos',['Bajo','Medio','Alto'],index=Non
 involucramiento_padres_dicc = {'Bajo':0,'Medio':1,'Alto':2}
 acceso_recursos_dicc = {'Bajo':2,'Medio':1,'Alto':0}
 
-
+if st.button('Predecir'):
+    prediccion = model.predict([[horas_estudio, asistencia, nota_previa, sesiones_tutoria, involucramiento_padres_dicc[involucramiento_padres], acceso_recursos_dicc[acceso_recursos]]])
+    st.write('Nota predecida:', int(prediccion))
