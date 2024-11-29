@@ -1,4 +1,22 @@
-from utils import db_connect
-engine = db_connect()
+from pickle import load
+import streamlit as st
 
-# your code here
+model = load(open('../models/random_forest.sav','rb'))
+
+st.title('Predicción de Nota en Exámen')
+
+#[['Hours_Studied','Attendance','Previous_Scores','Tutoring_Sessions',
+# 'Parental_Involvement_num','Access_to_Resources_num']]
+
+horas_estudio = st.slider('Horas de estudio', min_value=1,max_value=44,step=1)
+asistencia = st.slider('Asistencia', min_value=60,max_value=100,step=1)
+nota_previa = st.slider('Nota anterior obtenida', min_value=50,max_value=100,step=1)
+sesiones_tutoria = st.slider('Sesiones de tutoría', min_value=0,max_value=8,step=1)
+involucramiento_padres = st.radio('Involucramiento de los padres',['Bajo','Medio','Alto'],index=None)
+acceso_recursos = st.radio('Acceso a recursos',['Bajo','Medio','Alto'],index=None)
+
+#diccionarios para traducir inputs y aplicarlos al modelo
+involucramiento_padres_dicc = {'Bajo':0,'Medio':1,'Alto':2}
+acceso_recursos_dicc = {'Bajo':2,'Medio':1,'Alto':0}
+
+
