@@ -1,7 +1,7 @@
 from pickle import load
 import streamlit as st
 
-model = load(open('/workspaces/appweb_ml_streamlit/models/random_forest_42.sav','rb'))
+model = load(open('/workspaces/appweb_ml_streamlit/src/random_forest_42.sav','rb'))
 
 st.title('Predicción de Nota en Exámen')
 
